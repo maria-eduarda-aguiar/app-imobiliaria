@@ -1,21 +1,21 @@
 import React, { useState } from "react";
 import {
   View,
-  Text,
   Image,
   StyleSheet,
   TextInput,
   TouchableOpacity,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { RadioButton } from "react-native-paper";
+import { RadioButton, Text, useTheme } from "react-native-paper";
 import { Checkbox } from "react-native-paper";
 
 export default function Register() {
   const navigation = useNavigation();
+  const theme = useTheme();
 
   const [enderecoImovel, setEnderecoImovel] = useState("");
-  const [tipoImovel, setTipoImovel] = useState("");
+  const [tipoImovel, setTipoImovel] = useState("apartamento");
   const [valorAluguel, setValorAluguel] = useState("");
   const [valorCondominio, setValorCondominio] = useState("");
   const [numeroQuartos, setNumeroQuartos] = useState("");
@@ -47,33 +47,49 @@ export default function Register() {
   };
 
   return (
-    <View style={styles.container}>
+    <View
+      style={{ ...styles.container, backgroundColor: theme.colors.background }}
+    >
       <Image
-        source={require("../../../assets/logo-imob.png")}
+        source={require("../../../assets/logo-real-state.png")}
         style={styles.logo}
         resizeMode="contain"
       />
 
       <View style={styles.containerForm}>
-        <Text style={styles.title}>Cadastre seu imóvel</Text>
+        <Text style={{ ...styles.title, color: theme.colors.secondary }}>
+          Cadastre seu imóvel
+        </Text>
 
         <TextInput
           placeholder="Endereço do imóvel"
           style={styles.textInput}
           onChangeText={(text) => setEnderecoImovel(text)}
         />
-        <Text>Tipo do imóvel</Text>
+        <Text variant="bodyLarge" style={{ color: theme.colors.secondary }}>
+          Tipo do imóvel
+        </Text>
         <RadioButton.Group
           onValueChange={(novoTipoImovel) => setTipoImovel(novoTipoImovel)}
           value={tipoImovel}
         >
-          <View style={styles.radioButton}>
-            <RadioButton value="apartamento" />
-            <Text>Apartamento</Text>
-          </View>
-          <View style={styles.radioButton}>
-            <RadioButton value="casa" />
-            <Text>Casa</Text>
+          <View style={styles.radioButtonContainer}>
+            <View style={styles.radioButton}>
+              <RadioButton
+                value="apartamento"
+                color={theme.colors.secondary}
+                uncheckedColor={theme.colors.secondary}
+              />
+              <Text style={{ color: theme.colors.secondary }}>Apartamento</Text>
+            </View>
+            <View style={styles.radioButton}>
+              <RadioButton
+                value="casa"
+                color={theme.colors.secondary}
+                uncheckedColor={theme.colors.secondary}
+              />
+              <Text style={{ color: theme.colors.secondary }}>Casa</Text>
+            </View>
           </View>
         </RadioButton.Group>
         <TextInput
@@ -109,6 +125,9 @@ export default function Register() {
           <Checkbox.Item
             label="Está locado?"
             status={statusLocacao ? "checked" : "unchecked"}
+            color={theme.colors.secondary}
+            labelStyle={{ color: theme.colors.secondary }}
+            uncheckedColor={theme.colors.secondary}
             onPress={() => setStatusLocacao((checked) => !checked)}
           />
         </View>
@@ -122,7 +141,7 @@ export default function Register() {
           onPress={() => navigation.navigate("Listagem")}
         >
           <Text style={{ color: "white", textAlign: "center" }}>
-            Listar imóveis cadastrados
+            LISTAR IMÓVEIS CADASTRADO
           </Text>
         </TouchableOpacity>
       </View>
@@ -133,7 +152,6 @@ export default function Register() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#545454",
     justifyContent: "center",
     padding: 16,
   },
@@ -145,6 +163,7 @@ const styles = StyleSheet.create({
 
   containerForm: {
     flex: 1,
+    gap: 8,
   },
 
   title: {
@@ -167,7 +186,7 @@ const styles = StyleSheet.create({
   btnCadastro: {
     width: "100%",
     height: 40,
-    backgroundColor: "green",
+    backgroundColor: "#066799",
     borderRadius: 20,
     justifyContent: "center",
   },
@@ -182,5 +201,9 @@ const styles = StyleSheet.create({
   radioButton: {
     flexDirection: "row",
     alignItems: "center",
+  },
+  radioButtonContainer: {
+    flexDirection: "row",
+    gap: 16,
   },
 });

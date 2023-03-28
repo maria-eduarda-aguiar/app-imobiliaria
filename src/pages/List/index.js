@@ -1,15 +1,46 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet } from "react-native";
-import { View, Text, Image, Button } from "react-native";
+import { View, Image } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { RadioButton, Text, useTheme } from "react-native-paper";
 
 export default function List() {
   const listaImoveis = JSON.parse(localStorage.getItem("listaImoveis")) ?? [];
+  const [filtroTipoContrato, setFiltroTipoContrato] = useState("locacao");
+  const theme = useTheme();
 
   console.log({ listaImoveis });
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Imóveis Cadastrados</Text>
+      <Text variant="bodyLarge" style={{ color: theme.colors.tertiary }}>
+        Filtrar por Contrato
+      </Text>
+      <RadioButton.Group
+        onValueChange={(novoFiltroTipoContrato) =>
+          setFiltroTipoContrato(novoFiltroTipoContrato)
+        }
+        value={filtroTipoContrato}
+      >
+        <View style={styles.radioButtonContainer}>
+          <View style={styles.radioButton}>
+            <RadioButton
+              value="locacao"
+              color={theme.colors.primary}
+              uncheckedColor={theme.colors.primary}
+            />
+            <Text style={{ color: theme.colors.tertiary }}>Locação</Text>
+          </View>
+          <View style={styles.radioButton}>
+            <RadioButton
+              value="venda"
+              color={theme.colors.primary}
+              uncheckedColor={theme.colors.primary}
+            />
+            <Text style={{ color: theme.colors.tertiary }}>Venda</Text>
+          </View>
+        </View>
+      </RadioButton.Group>
       <View style={styles.listContainer}>
         {listaImoveis.map((imovel, index) => (
           <View style={styles.dataContainer}>
@@ -51,11 +82,13 @@ const styles = StyleSheet.create({
     padding: 16,
     gap: 16,
   },
+
   listContainer: {
     gap: 16,
   },
 
   homeContainer: {},
+
   dataContainer: {
     flexDirection: "row",
     alignItems: "flex-start",
@@ -64,16 +97,29 @@ const styles = StyleSheet.create({
     border: "1px solid",
     justifyContent: "space-between",
   },
+
   iconsContainer: {
     flexDirection: "row",
     gap: 8,
   },
+
   title: {
     fontSize: 24,
     fontWeight: 700,
   },
+
   fotoUrl: {
     width: 200,
     height: 200,
+  },
+
+  radioButton: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+
+  radioButtonContainer: {
+    flexDirection: "row",
+    gap: 16,
   },
 });

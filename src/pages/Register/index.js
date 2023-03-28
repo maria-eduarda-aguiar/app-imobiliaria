@@ -14,8 +14,9 @@ export default function Register() {
   const navigation = useNavigation();
   const theme = useTheme();
 
-  const [enderecoImovel, setEnderecoImovel] = useState("");
+  const [tipoContrato, setTipoContrato] = useState("locacao");
   const [tipoImovel, setTipoImovel] = useState("apartamento");
+  const [enderecoImovel, setEnderecoImovel] = useState("");
   const [valorAluguel, setValorAluguel] = useState("");
   const [valorCondominio, setValorCondominio] = useState("");
   const [numeroQuartos, setNumeroQuartos] = useState("");
@@ -29,8 +30,9 @@ export default function Register() {
     const listaImoveis = JSON.parse(localStorage.getItem("listaImoveis")) ?? [];
 
     const novoImovel = {
-      enderecoImovel,
+      tipoContrato,
       tipoImovel,
+      enderecoImovel,
       valorAluguel,
       valorCondominio,
       numeroQuartos,
@@ -58,14 +60,36 @@ export default function Register() {
 
       <View style={styles.containerForm}>
         <Text style={{ ...styles.title, color: theme.colors.secondary }}>
-          Cadastre seu imóvel
+          CADASTRE AQUI O SEU IMÓVEL
         </Text>
-
-        <TextInput
-          placeholder="Endereço do imóvel"
-          style={styles.textInput}
-          onChangeText={(text) => setEnderecoImovel(text)}
-        />
+        <Text variant="bodyLarge" style={{ color: theme.colors.secondary }}>
+          Contrato
+        </Text>
+        <RadioButton.Group
+          onValueChange={(novoTipoContrato) =>
+            setTipoContrato(novoTipoContrato)
+          }
+          value={tipoContrato}
+        >
+          <View style={styles.radioButtonContainer}>
+            <View style={styles.radioButton}>
+              <RadioButton
+                value="locacao"
+                color={theme.colors.primary}
+                uncheckedColor={theme.colors.primary}
+              />
+              <Text style={{ color: theme.colors.secondary }}>Locação</Text>
+            </View>
+            <View style={styles.radioButton}>
+              <RadioButton
+                value="venda"
+                color={theme.colors.primary}
+                uncheckedColor={theme.colors.primary}
+              />
+              <Text style={{ color: theme.colors.secondary }}>Venda</Text>
+            </View>
+          </View>
+        </RadioButton.Group>
         <Text variant="bodyLarge" style={{ color: theme.colors.secondary }}>
           Tipo do imóvel
         </Text>
@@ -77,30 +101,35 @@ export default function Register() {
             <View style={styles.radioButton}>
               <RadioButton
                 value="apartamento"
-                color={theme.colors.secondary}
-                uncheckedColor={theme.colors.secondary}
+                color={theme.colors.primary}
+                uncheckedColor={theme.colors.primary}
               />
               <Text style={{ color: theme.colors.secondary }}>Apartamento</Text>
             </View>
             <View style={styles.radioButton}>
               <RadioButton
                 value="casa"
-                color={theme.colors.secondary}
-                uncheckedColor={theme.colors.secondary}
+                color={theme.colors.primary}
+                uncheckedColor={theme.colors.primary}
               />
               <Text style={{ color: theme.colors.secondary }}>Casa</Text>
             </View>
           </View>
         </RadioButton.Group>
         <TextInput
-          placeholder="Valor do aluguel"
+          placeholder="Endereço do imóvel"
+          style={styles.textInput}
+          onChangeText={(text) => setEnderecoImovel(text)}
+        />
+        <TextInput
+          placeholder="Valor do aluguel (R$)"
           style={styles.textInput}
           onChangeText={(text) => setValorAluguel(text)}
         />
 
         {tipoImovel === "apartamento" && (
           <TextInput
-            placeholder="Valor do condomínio"
+            placeholder="Valor do condomínio (R$)"
             style={styles.textInput}
             onChangeText={(text) => setValorCondominio(text)}
           />
@@ -125,24 +154,15 @@ export default function Register() {
           <Checkbox.Item
             label="Está locado?"
             status={statusLocacao ? "checked" : "unchecked"}
-            color={theme.colors.secondary}
+            color={theme.colors.primary}
             labelStyle={{ color: theme.colors.secondary }}
-            uncheckedColor={theme.colors.secondary}
+            uncheckedColor={theme.colors.primary}
             onPress={() => setStatusLocacao((checked) => !checked)}
           />
         </View>
 
         <TouchableOpacity style={styles.btnCadastro} onPress={() => cadastro()}>
           <Text style={{ color: "white", textAlign: "center" }}>CADASTRAR</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.btnListagem}
-          onPress={() => navigation.navigate("Listagem")}
-        >
-          <Text style={{ color: "white", textAlign: "center" }}>
-            LISTAR IMÓVEIS CADASTRADO
-          </Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -167,7 +187,7 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    fontSize: 24,
+    fontSize: 18,
     fontWeight: "bold",
     marginTop: 28,
     marginBottom: 12,
@@ -202,6 +222,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
   },
+
   radioButtonContainer: {
     flexDirection: "row",
     gap: 16,

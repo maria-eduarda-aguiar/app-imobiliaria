@@ -4,19 +4,20 @@ import { View, Text, Image, Button } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
 export default function List() {
-  const listaImoveis = JSON.parse(localStorage.getItem("listaImoveis"));
+  const listaImoveis = JSON.parse(localStorage.getItem("listaImoveis")) ?? [];
 
   console.log({ listaImoveis });
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Listagem de Imóveis Cadastrados</Text>
+      <Text style={styles.title}>Imóveis Cadastrados</Text>
       <View style={styles.listContainer}>
         {listaImoveis.map((imovel, index) => (
           <View style={styles.dataContainer}>
             <View style={styles.dataContainer}>
               <View key={index} style={styles.homeContainer}>
-                <Text>Endereço: {imovel.enderecoImovel}</Text>
+                <Text>Contrato: {imovel.tipoContrato}</Text>
                 <Text>Tipo de imóvel: {imovel.tipoImovel}</Text>
+                <Text>Endereço: {imovel.enderecoImovel}</Text>
                 <Text>Valor do aluguel: {imovel.valorAluguel}</Text>
                 <Text>Valor do condomínio: {imovel.valorCondominio}</Text>
                 <Text>Número de banheiros: {imovel.numeroBanheiros}</Text>

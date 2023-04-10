@@ -1,12 +1,14 @@
 import * as React from "react";
-import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import "react-native-gesture-handler";
 import Register from "../pages/Register";
 import List from "../pages/List";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { createStackNavigator } from "@react-navigation/stack";
+import Edit from "../pages/Edit";
 
 const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
 export default function Routes() {
   return (
@@ -23,8 +25,8 @@ export default function Routes() {
         }}
       />
       <Tab.Screen
-        name="Listagem"
-        component={List}
+        name="List"
+        component={OutNavigation}
         options={{
           headerShown: false,
           tabBarLabel: "Imóveis",
@@ -34,5 +36,18 @@ export default function Routes() {
         }}
       />
     </Tab.Navigator>
+  );
+}
+
+function OutNavigation() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Listagem"
+        component={List}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen name="Edição" component={Edit} />
+    </Stack.Navigator>
   );
 }

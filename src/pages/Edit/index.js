@@ -6,7 +6,6 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
-
 import { RadioButton, Text, useTheme } from "react-native-paper";
 import { Checkbox } from "react-native-paper";
 import { useContext } from "react";
@@ -14,23 +13,39 @@ import { ImoveisContext } from "../../context";
 import moneyMask from "../../masks/moneyMask";
 import { onlyNumbersMask } from "../../masks/onlyNumbersMask";
 
-export default function Register({ navigation }) {
+export default function Edit({ route, navigation }) {
   const theme = useTheme();
 
   const listaImoveis = useContext(ImoveisContext);
 
-  const [tipoContrato, setTipoContrato] = useState("Locação");
-  const [tipoImovel, setTipoImovel] = useState("Apartamento");
-  const [enderecoImovel, setEnderecoImovel] = useState("");
-  const [valorAluguel, setValorAluguel] = useState("");
-  const [valorCondominio, setValorCondominio] = useState("");
-  const [numeroQuartos, setNumeroQuartos] = useState("");
-  const [numeroBanheiros, setNumeroBanheiros] = useState("");
-  const [fotoImovel, setFotoImovel] = useState("");
-  const [statusLocacao, setStatusLocacao] = useState("");
+  const imovelSelecionado = listaImoveis.getImovel(route.params.idImovel);
 
-  const cadastro = () => {
-    alert("Imóvel cadastrado com sucesso!");
+  const [tipoContrato, setTipoContrato] = useState(
+    imovelSelecionado.tipoContrato
+  );
+  const [tipoImovel, setTipoImovel] = useState(imovelSelecionado.tipoImovel);
+  const [enderecoImovel, setEnderecoImovel] = useState(
+    imovelSelecionado.enderecoImovel
+  );
+  const [valorAluguel, setValorAluguel] = useState(
+    imovelSelecionado.valorAluguel.toFixed(2)
+  );
+  const [valorCondominio, setValorCondominio] = useState(
+    imovelSelecionado.valorCondominio.toFixed(2)
+  );
+  const [numeroQuartos, setNumeroQuartos] = useState(
+    imovelSelecionado.numeroQuartos
+  );
+  const [numeroBanheiros, setNumeroBanheiros] = useState(
+    imovelSelecionado.numeroBanheiros
+  );
+  const [fotoImovel, setFotoImovel] = useState(imovelSelecionado.fotoImovel);
+  const [statusLocacao, setStatusLocacao] = useState(
+    imovelSelecionado.statusLocacao
+  );
+
+  const salvar = () => {
+    alert("Imóvel editado com sucesso!");
 
     const novoImovel = {
       tipoContrato,
@@ -44,7 +59,7 @@ export default function Register({ navigation }) {
       statusLocacao,
     };
 
-    listaImoveis.addImovel({
+    listaImoveis.editarImovel(route.params.idImovel, {
       ...novoImovel,
       valorAluguel: Number(
         Number(
@@ -58,22 +73,18 @@ export default function Register({ navigation }) {
       ),
     });
 
-    navigation.navigate("List");
+    
+
+    navigation.navigate("Listagem");
   };
 
   return (
     <View
       style={{ ...styles.container, backgroundColor: theme.colors.background }}
     >
-      <Image
-        source={require("../../../assets/logo-real-state.png")}
-        style={styles.logo}
-        resizeMode="contain"
-      />
-
       <View style={styles.containerForm}>
         <Text style={{ ...styles.title, color: theme.colors.secondary }}>
-          CADASTRE AQUI O SEU IMÓVEL
+          EDITE OS DADOS DO IMÓVEL
         </Text>
         <Text variant="bodyLarge" style={{ color: theme.colors.secondary }}>
           Contrato
@@ -133,20 +144,21 @@ export default function Register({ navigation }) {
           placeholder="Endereço do imóvel"
           style={styles.textInput}
           onChangeText={(text) => setEnderecoImovel(text)}
+          defaultValue={enderecoImovel}
         />
         <TextInput
           placeholder="Valor do aluguel (R$)"
           style={styles.textInput}
-          value={valorAluguel ? moneyMask(valorAluguel) : ""}
           onChangeText={(text) => setValorAluguel(text)}
+          value={valorAluguel ? moneyMask(valorAluguel) : ""}
         />
 
         {tipoImovel === "Apartamento" && (
           <TextInput
             placeholder="Valor do condomínio (R$)"
-            value={valorCondominio ? moneyMask(valorCondominio) : ""}
             style={styles.textInput}
             onChangeText={(text) => setValorCondominio(text)}
+            value={valorCondominio ? moneyMask(valorCondominio) : ""}
           />
         )}
 
@@ -154,16 +166,19 @@ export default function Register({ navigation }) {
           placeholder="Número de quartos"
           style={styles.textInput}
           onChangeText={(text) => setNumeroQuartos(text)}
+          defaultValue={numeroQuartos}
         />
         <TextInput
           placeholder="Número de banheiros"
           style={styles.textInput}
           onChangeText={(text) => setNumeroBanheiros(text)}
+          defaultValue={numeroBanheiros}
         />
         <TextInput
           placeholder="Foto (URL)"
           style={styles.textInput}
           onChangeText={(text) => setFotoImovel(text)}
+          defaultValue={fotoImovel}
         />
         <View>
           <Checkbox.Item
@@ -176,8 +191,8 @@ export default function Register({ navigation }) {
           />
         </View>
 
-        <TouchableOpacity style={styles.btnCadastro} onPress={() => cadastro()}>
-          <Text style={{ color: "white", textAlign: "center" }}>CADASTRAR</Text>
+        <TouchableOpacity style={styles.btnCadastro} onPress={() => salvar()}>
+          <Text style={{ color: "white", textAlign: "center" }}>SALVAR</Text>
         </TouchableOpacity>
       </View>
     </View>

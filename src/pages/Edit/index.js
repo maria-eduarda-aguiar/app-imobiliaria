@@ -27,8 +27,8 @@ export default function Edit({ route, navigation }) {
   const [enderecoImovel, setEnderecoImovel] = useState(
     imovelSelecionado.enderecoImovel
   );
-  const [valorAluguel, setValorAluguel] = useState(
-    imovelSelecionado.valorAluguel.toFixed(2)
+  const [valor, setValor] = useState(
+    imovelSelecionado.valor.toFixed(2)
   );
   const [valorCondominio, setValorCondominio] = useState(
     imovelSelecionado.valorCondominio.toFixed(2)
@@ -51,7 +51,7 @@ export default function Edit({ route, navigation }) {
       tipoContrato,
       tipoImovel,
       enderecoImovel,
-      valorAluguel,
+      valor,
       valorCondominio,
       numeroQuartos,
       numeroBanheiros,
@@ -61,9 +61,9 @@ export default function Edit({ route, navigation }) {
 
     listaImoveis.editarImovel(route.params.idImovel, {
       ...novoImovel,
-      valorAluguel: Number(
+      valor: Number(
         Number(
-          moneyMask(valorAluguel).replace(",", ".").replace("R$", "")
+          moneyMask(valor).replace(",", ".").replace("R$", "")
         ).toFixed(2)
       ),
       valorCondominio: Number(
@@ -149,8 +149,8 @@ export default function Edit({ route, navigation }) {
         <TextInput
           placeholder="Valor do aluguel (R$)"
           style={styles.textInput}
-          onChangeText={(text) => setValorAluguel(text)}
-          value={valorAluguel ? moneyMask(valorAluguel) : ""}
+          onChangeText={(text) => setValor(text)}
+          value={valor ? moneyMask(valor) : ""}
         />
 
         {tipoImovel === "Apartamento" && (

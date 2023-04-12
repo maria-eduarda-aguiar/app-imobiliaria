@@ -6,13 +6,11 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
-
 import { RadioButton, Text, useTheme } from "react-native-paper";
 import { Checkbox } from "react-native-paper";
 import { useContext } from "react";
 import { ImoveisContext } from "../../context";
 import moneyMask from "../../masks/moneyMask";
-import { onlyNumbersMask } from "../../masks/onlyNumbersMask";
 
 export default function Register({ navigation }) {
   const theme = useTheme();
@@ -22,7 +20,7 @@ export default function Register({ navigation }) {
   const [tipoContrato, setTipoContrato] = useState("Locação");
   const [tipoImovel, setTipoImovel] = useState("Apartamento");
   const [enderecoImovel, setEnderecoImovel] = useState("");
-  const [valorAluguel, setValorAluguel] = useState("");
+  const [valor, setValor] = useState("");
   const [valorCondominio, setValorCondominio] = useState("");
   const [numeroQuartos, setNumeroQuartos] = useState("");
   const [numeroBanheiros, setNumeroBanheiros] = useState("");
@@ -36,7 +34,7 @@ export default function Register({ navigation }) {
       tipoContrato,
       tipoImovel,
       enderecoImovel,
-      valorAluguel,
+      valor,
       valorCondominio,
       numeroQuartos,
       numeroBanheiros,
@@ -46,9 +44,9 @@ export default function Register({ navigation }) {
 
     listaImoveis.addImovel({
       ...novoImovel,
-      valorAluguel: Number(
+      valor: Number(
         Number(
-          moneyMask(valorAluguel).replace(",", ".").replace("R$", "")
+          moneyMask(valor).replace(",", ".").replace("R$", "")
         ).toFixed(2)
       ),
       valorCondominio: Number(
@@ -135,10 +133,10 @@ export default function Register({ navigation }) {
           onChangeText={(text) => setEnderecoImovel(text)}
         />
         <TextInput
-          placeholder="Valor do aluguel (R$)"
+          placeholder="Valor (R$)"
           style={styles.textInput}
-          value={valorAluguel ? moneyMask(valorAluguel) : ""}
-          onChangeText={(text) => setValorAluguel(text)}
+          value={valor ? moneyMask(valor) : ""}
+          onChangeText={(text) => setValor(text)}
         />
 
         {tipoImovel === "Apartamento" && (

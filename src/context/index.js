@@ -1,19 +1,15 @@
 import { createContext, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+import { dbAddImovel } from "../database/db";
 
 export const ImoveisContext = createContext();
 
 export default function ImoveisProvedor({ children }) {
   const [imoveis, setImoveis] = useState([]);
 
+  // Adiciona o imóvel no "DB"
   const addImovel = (imovel) => {
-    setImoveis((state) => {
-      const novosImoveis = [...state];
-
-      novosImoveis.push({ id: uuidv4(), ...imovel });
-
-      return [...novosImoveis];
-    });
+    dbAddImovel(imovel)
   };
 
   const removerImovel = (idImovel) => {

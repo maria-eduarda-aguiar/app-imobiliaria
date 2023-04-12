@@ -92,7 +92,7 @@ export default function List({ navigation }) {
               <View style={styles.infoContainer}>
                 <Text style={styles.label}>Valor do aluguel</Text>
                 <Text>
-                  {imovel.valorAluguel.toLocaleString("pt-BR", {
+                  {imovel.valor.toLocaleString("pt-BR", {
                     style: "currency",
                     currency: "BRL",
                   })}

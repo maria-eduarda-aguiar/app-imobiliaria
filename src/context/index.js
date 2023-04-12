@@ -1,52 +1,50 @@
-import { createContext, useState } from "react";
-import { v4 as uuidv4 } from "uuid";
-import { dbAddImovel } from "../database/db";
+import { createContext, useEffect, useState } from "react";
+import {
+  dbAddImovel,
+  dbEditarImovel,
+  dbExcluirImovel,
+  getImovelById,
+  getListaImoveis,
+} from "../database/db";
 
 export const ImoveisContext = createContext();
 
 export default function ImoveisProvedor({ children }) {
-  const [imoveis, setImoveis] = useState([]);
+  const [localImoveis, setLocalImoveis] = useState([]);
 
-  // Adiciona o imóvel no "DB"
-  const addImovel = (imovel) => {
-    dbAddImovel(imovel)
+  // Adiciona o imóvel no banco de dados.
+  const addImovel = async (imovel) => {
+    await dbAddImovel(imovel);
   };
 
-  const removerImovel = (idImovel) => {
-    setImoveis((state) => {
-      let novosImoveis = [...state];
-
-      novosImoveis = novosImoveis.filter((imovel) => imovel.id !== idImovel);
-
-      return [...novosImoveis];
-    });
+  const removerImovel = async (idImovel) => {
+    await dbExcluirImovel(idImovel);
   };
 
-  const editarImovel = (idImovel, dadosImovel) => {
-    setImoveis((state) => {
-      let novosImoveis = [...state];
-
-      novosImoveis = novosImoveis.map((imovel) => {
-        if (imovel.id === idImovel) {
-          return {
-            ...imovel,
-            ...dadosImovel,
-          };
-        }
-        return imovel;
-      });
-
-      return [...novosImoveis];
-    });
+  const editarImovel = async (idImovel, dadosImovel) => {
+    await dbEditarImovel(idImovel, dadosImovel);
+    getLista();
   };
 
-  const getImovel = (idImovel) => {
-    return imoveis.find((imovel) => imovel.id === idImovel);
+  const getImovel = async (idImovel) => {
+    return localImoveis.find((imovel) => imovel.id === idImovel);
+  };
+
+  const getLista = async () => {
+    const lista = await getListaImoveis();
+    setLocalImoveis(lista);
   };
 
   return (
     <ImoveisContext.Provider
-      value={{ imoveis, addImovel, removerImovel, editarImovel, getImovel }}
+      value={{
+        localImoveis,
+        addImovel,
+        removerImovel,
+        editarImovel,
+        getImovel,
+        getLista,
+      }}
     >
       {children}
     </ImoveisContext.Provider>

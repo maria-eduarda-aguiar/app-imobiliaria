@@ -1,10 +1,17 @@
-import { enablePromise, openDatabase } from "react-native-sqlite-storage";
+import {
+  enablePromise,
+  openDatabase,
+  DEBUG,
+} from "react-native-sqlite-storage";
 
+DEBUG(true);
 enablePromise(true);
 
 // Criação e conexão do banco de dados.
 export async function getConnection() {
-  return await openDatabase({ name: "imobiliaria", location: "default" });
+  return await openDatabase({ name: "imobiliaria", location: "default" })
+    .then((res) => console.log("Pode cre"))
+    .catch((err) => console.error(err));
 }
 
 // Função para criar a tabela do banco de dados.
@@ -29,7 +36,7 @@ export async function createTables() {
   await db.close();
 }
 
-// Função para adicionar um novo imóvel no banco de dados. 
+// Função para adicionar um novo imóvel no banco de dados.
 export async function dbAddImovel(imovel) {
   const db = await getConnection();
   const query = `
@@ -76,7 +83,24 @@ export async function dbEditarImovel(imovel) {
     .then((response) => console.warn("Editado: " + JSON.stringify(response)))
     .catch((erro) => console.warn("Erro: " + JSON.stringify(erro)));
   await db.close();
-} 
+}
+
+// Função para resgatar um único imóvel pelo ID.
+export async function getImovelById(idImovel) {
+  const db = await getConnection();
+  let imovel;
+  const query = `
+      SELECT * FROM imoveis WHERE id = ${idImovel}
+  `;
+  await db
+    .executeSql(query)
+    .then((response) => {
+      imovel = response[0];
+    })
+    .catch((erro) => console.warn("Erro: " + JSON.stringify(erro)));
+  await db.close();
+  return imovel;
+}
 
 // Função para excluir um imóvel no banco de dados.
 export async function dbExcluirImovel(idImovel) {
@@ -104,7 +128,7 @@ export async function dbExcluirImovel(idImovel) {
 }
 
 // Função para listar os imóveis cadastrados no banco de dados.
-export async function listaImovel() {
+export async function getListaImoveis() {
   const db = await getConnection();
   const query = `
       SELECT id,

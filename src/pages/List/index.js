@@ -10,16 +10,20 @@ export default function List({ navigation }) {
   const imoveisContext = useContext(ImoveisContext);
 
   const [filtroTipoContrato, setFiltroTipoContrato] = useState("Locação");
-  const [listaImoveis, setListaImoveis] = useState(imoveisContext.imoveis);
+  const [listaImoveis] = useState(imoveisContext.localImoveis);
   const theme = useTheme();
 
-  useEffect(() => {
-    const listaImoveisFiltrado = imoveisContext.imoveis.filter(
-      (imovel) => imovel.tipoContrato === filtroTipoContrato
-    );
+  // useEffect(() => {
+  //   const listaImoveisFiltrado = imoveisContext.localImoveis.filter(
+  //     (imovel) => imovel.tipoContrato === filtroTipoContrato
+  //   );
 
-    setListaImoveis(listaImoveisFiltrado);
-  }, [filtroTipoContrato]);
+  //   setListaImoveis(listaImoveisFiltrado);
+  // }, [filtroTipoContrato]);
+
+  useEffect(() => {
+    imoveisContext.getLista();
+  }, []);
 
   return (
     <View style={styles.container}>

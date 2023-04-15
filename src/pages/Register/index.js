@@ -11,6 +11,7 @@ import { Checkbox } from "react-native-paper";
 import { useContext } from "react";
 import { ImoveisContext } from "../../context";
 import moneyMask from "../../masks/moneyMask";
+import { ScrollView } from "react-native-gesture-handler";
 
 export default function Register({ navigation }) {
   const theme = useTheme();
@@ -60,6 +61,7 @@ export default function Register({ navigation }) {
   };
 
   return (
+    <ScrollView style={styles.scrollView}>
     <View
       style={{ ...styles.container, backgroundColor: theme.colors.background }}
     >
@@ -186,6 +188,7 @@ export default function Register({ navigation }) {
         </TouchableOpacity>
       </View>
     </View>
+    </ScrollView>
   );
 }
 
@@ -194,6 +197,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     padding: 16,
+  },
+
+  scrollView: {
+    backgroundColor: "#1b1b1b",
   },
 
   logo: {

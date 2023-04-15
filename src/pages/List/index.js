@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
-import { View, Image } from "react-native";
+import { View, Image, ScrollView } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { RadioButton, Text, useTheme } from "react-native-paper";
 import { useContext } from "react";
@@ -9,28 +9,36 @@ import { ImoveisContext } from "../../context";
 export default function List({ navigation }) {
   const imoveisContext = useContext(ImoveisContext);
 
-  const [filtroTipoContrato, setFiltroTipoContrato] = useState("Locação");
+  const [filtroTipoContrato, setFiltroTipoContrato] = useState("Todos");
   const [listaImoveis] = useState(imoveisContext.localImoveis);
   const theme = useTheme();
 
-  // useEffect(() => {
-  //   const listaImoveisFiltrado = imoveisContext.localImoveis.filter(
-  //     (imovel) => imovel.tipoContrato === filtroTipoContrato
-  //   );
+  useEffect(() => {
+    let listaImoveisFiltrado = imoveisContext.imoveis;
 
-  //   setListaImoveis(listaImoveisFiltrado);
-  // }, [filtroTipoContrato]);
+    if (filtroTipoContrato !== "Todos") {
+      listaImoveisFiltrado = imoveisContext.imoveis.filter(
+        (imovel) => imovel.tipoContrato === filtroTipoContrato
+      );
+    }
+
+    setListaImoveis(listaImoveisFiltrado);
+  }, [filtroTipoContrato]);
 
   useEffect(() => {
-    imoveisContext.getLista();
-  }, []);
+    setListaImoveis(imoveisContext.imoveis);
+  }, [imoveisContext.imoveis]);
+
+  console.log({ listaImoveis, context: imoveisContext });
 
   return (
     <View style={styles.container}>
+      <ScrollView>
       <Text style={styles.title}>Imóveis Cadastrados</Text>
       <Text variant="bodyLarge" style={{ color: theme.colors.tertiary }}>
         Filtrar por Contrato
       </Text>
+
       <RadioButton.Group
         onValueChange={(novoFiltroTipoContrato) =>
           setFiltroTipoContrato(novoFiltroTipoContrato)
@@ -38,6 +46,15 @@ export default function List({ navigation }) {
         value={filtroTipoContrato}
       >
         <View style={styles.radioButtonContainer}>
+        <View style={styles.radioButton}>
+              <RadioButton
+                value="Todos"
+                color={theme.colors.primary}
+                uncheckedColor={theme.colors.primary}
+              />
+              <Text style={{ color: theme.colors.tertiary }}>Todos</Text>
+            </View>
+
           <View style={styles.radioButton}>
             <RadioButton
               value="Locação"
@@ -46,6 +63,7 @@ export default function List({ navigation }) {
             />
             <Text style={{ color: theme.colors.tertiary }}>Locação</Text>
           </View>
+
           <View style={styles.radioButton}>
             <RadioButton
               value="Venda"
@@ -56,6 +74,7 @@ export default function List({ navigation }) {
           </View>
         </View>
       </RadioButton.Group>
+
       <View style={styles.listContainer}>
         {listaImoveis.map((imovel, index) => (
           <View style={styles.dataContainer}>
@@ -80,19 +99,23 @@ export default function List({ navigation }) {
                 />
               </View>
             </View>
+
             <View key={index} style={styles.homeContainer}>
               <View style={styles.infoContainer}>
                 <Text style={styles.label}>Contrato</Text>
                 <Text>{imovel.tipoContrato}</Text>
               </View>
+
               <View style={styles.infoContainer}>
                 <Text style={styles.label}>Tipo imóvel</Text>
                 <Text>{imovel.tipoImovel}</Text>
               </View>
+
               <View style={styles.infoContainer}>
                 <Text style={styles.label}>Endereço</Text>
                 <Text>{imovel.enderecoImovel}</Text>
               </View>
+
               <View style={styles.infoContainer}>
                 <Text style={styles.label}>Valor do aluguel</Text>
                 <Text>
@@ -102,6 +125,7 @@ export default function List({ navigation }) {
                   })}
                 </Text>
               </View>
+
               <View style={styles.infoContainer}>
                 <Text style={styles.label}>Valor do condomínio</Text>
                 <Text>
@@ -111,14 +135,17 @@ export default function List({ navigation }) {
                   })}
                 </Text>
               </View>
+
               <View style={styles.infoContainer}>
                 <Text style={styles.label}>Número de banheiros</Text>
                 <Text>{imovel.numeroBanheiros}</Text>
               </View>
+
               <View style={styles.infoContainer}>
                 <Text style={styles.label}>Número de quartos</Text>
                 <Text>{imovel.numeroQuartos}</Text>
               </View>
+
               <View style={styles.infoContainer}>
                 <Text style={styles.label}>Locado</Text>
                 {imovel.statusLocacao ? (
@@ -127,6 +154,7 @@ export default function List({ navigation }) {
                   <Ionicons name="close" size={20} color="red" />
                 )}
               </View>
+
               <View style={styles.infoContainer}>
                 <Text style={styles.label}>Imagem</Text>
                 <Image
@@ -135,10 +163,12 @@ export default function List({ navigation }) {
                   resizeMode="contain"
                 />
               </View>
+              
             </View>
           </View>
         ))}
       </View>
+      </ScrollView>
     </View>
   );
 }

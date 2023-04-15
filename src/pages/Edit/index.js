@@ -11,7 +11,6 @@ import { Checkbox } from "react-native-paper";
 import { useContext } from "react";
 import { ImoveisContext } from "../../context";
 import moneyMask from "../../masks/moneyMask";
-import { onlyNumbersMask } from "../../masks/onlyNumbersMask";
 
 export default function Edit({ route, navigation }) {
   const theme = useTheme();
@@ -72,9 +71,6 @@ export default function Edit({ route, navigation }) {
         ).toFixed(2)
       ),
     });
-
-    
-
     navigation.navigate("Listagem");
   };
 
@@ -86,6 +82,7 @@ export default function Edit({ route, navigation }) {
         <Text style={{ ...styles.title, color: theme.colors.secondary }}>
           EDITE OS DADOS DO IMÓVEL
         </Text>
+
         <Text variant="bodyLarge" style={{ color: theme.colors.secondary }}>
           Contrato
         </Text>
@@ -114,6 +111,7 @@ export default function Edit({ route, navigation }) {
             </View>
           </View>
         </RadioButton.Group>
+
         <Text variant="bodyLarge" style={{ color: theme.colors.secondary }}>
           Tipo do imóvel
         </Text>
@@ -140,12 +138,14 @@ export default function Edit({ route, navigation }) {
             </View>
           </View>
         </RadioButton.Group>
+
         <TextInput
           placeholder="Endereço do imóvel"
           style={styles.textInput}
           onChangeText={(text) => setEnderecoImovel(text)}
           defaultValue={enderecoImovel}
         />
+
         <TextInput
           placeholder="Valor do aluguel (R$)"
           style={styles.textInput}
@@ -168,18 +168,21 @@ export default function Edit({ route, navigation }) {
           onChangeText={(text) => setNumeroQuartos(text)}
           defaultValue={numeroQuartos}
         />
+
         <TextInput
           placeholder="Número de banheiros"
           style={styles.textInput}
           onChangeText={(text) => setNumeroBanheiros(text)}
           defaultValue={numeroBanheiros}
         />
+
         <TextInput
           placeholder="Foto (URL)"
           style={styles.textInput}
           onChangeText={(text) => setFotoImovel(text)}
           defaultValue={fotoImovel}
         />
+        
         <View>
           <Checkbox.Item
             label="Está locado?"

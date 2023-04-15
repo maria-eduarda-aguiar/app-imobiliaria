@@ -1,16 +1,15 @@
-import {
-  enablePromise,
-  openDatabase,
-  DEBUG,
-} from "react-native-sqlite-storage";
+import * as SQLite from 'expo-sqlite';
+// import {
+//   enablePromise,
+//   openDatabase,
+// } from "react-native-sqlite-storage";
 
-DEBUG(true);
 enablePromise(true);
 
 // Criação e conexão do banco de dados.
 export async function getConnection() {
   return await openDatabase({ name: "imobiliaria", location: "default" })
-    .then((res) => console.log("Pode cre"))
+    .then((res) => console.log("Teste"))
     .catch((err) => console.error(err));
 }
 

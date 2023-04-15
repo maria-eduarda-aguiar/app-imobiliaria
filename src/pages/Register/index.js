@@ -73,6 +73,7 @@ export default function Register({ navigation }) {
         <Text style={{ ...styles.title, color: theme.colors.secondary }}>
           CADASTRE AQUI O SEU IMÓVEL
         </Text>
+
         <Text variant="bodyLarge" style={{ color: theme.colors.secondary }}>
           Contrato
         </Text>
@@ -101,6 +102,7 @@ export default function Register({ navigation }) {
             </View>
           </View>
         </RadioButton.Group>
+
         <Text variant="bodyLarge" style={{ color: theme.colors.secondary }}>
           Tipo do imóvel
         </Text>
@@ -127,11 +129,13 @@ export default function Register({ navigation }) {
             </View>
           </View>
         </RadioButton.Group>
+
         <TextInput
           placeholder="Endereço do imóvel"
           style={styles.textInput}
           onChangeText={(text) => setEnderecoImovel(text)}
         />
+        
         <TextInput
           placeholder="Valor (R$)"
           style={styles.textInput}
@@ -153,16 +157,19 @@ export default function Register({ navigation }) {
           style={styles.textInput}
           onChangeText={(text) => setNumeroQuartos(text)}
         />
+
         <TextInput
           placeholder="Número de banheiros"
           style={styles.textInput}
           onChangeText={(text) => setNumeroBanheiros(text)}
         />
+
         <TextInput
           placeholder="Foto (URL)"
           style={styles.textInput}
           onChangeText={(text) => setFotoImovel(text)}
         />
+
         <View>
           <Checkbox.Item
             label="Está locado?"

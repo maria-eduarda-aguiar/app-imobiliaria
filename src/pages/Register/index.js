@@ -46,9 +46,7 @@ export default function Register({ navigation }) {
     listaImoveis.addImovel({
       ...novoImovel,
       valor: Number(
-        Number(
-          moneyMask(valor).replace(",", ".").replace("R$", "")
-        ).toFixed(2)
+        Number(moneyMask(valor).replace(",", ".").replace("R$", "")).toFixed(2)
       ),
       valorCondominio: Number(
         Number(
@@ -62,132 +60,146 @@ export default function Register({ navigation }) {
 
   return (
     <ScrollView style={styles.scrollView}>
-    <View
-      style={{ ...styles.container, backgroundColor: theme.colors.background }}
-    >
-      <Image
-        source={require("../../../assets/logo-real-state.png")}
-        style={styles.logo}
-        resizeMode="contain"
-      />
-
-      <View style={styles.containerForm}>
-        <Text style={{ ...styles.title, color: theme.colors.secondary }}>
-          CADASTRE AQUI O SEU IMÓVEL
-        </Text>
-
-        <Text variant="bodyLarge" style={{ color: theme.colors.secondary }}>
-          Contrato
-        </Text>
-        <RadioButton.Group
-          onValueChange={(novoTipoContrato) =>
-            setTipoContrato(novoTipoContrato)
-          }
-          value={tipoContrato}
-        >
-          <View style={styles.radioButtonContainer}>
-            <View style={styles.radioButton}>
-              <RadioButton
-                value="Locação"
-                color={theme.colors.primary}
-                uncheckedColor={theme.colors.primary}
-              />
-              <Text style={{ color: theme.colors.secondary }}>Locação</Text>
-            </View>
-            <View style={styles.radioButton}>
-              <RadioButton
-                value="Venda"
-                color={theme.colors.primary}
-                uncheckedColor={theme.colors.primary}
-              />
-              <Text style={{ color: theme.colors.secondary }}>Venda</Text>
-            </View>
-          </View>
-        </RadioButton.Group>
-
-        <Text variant="bodyLarge" style={{ color: theme.colors.secondary }}>
-          Tipo do imóvel
-        </Text>
-        <RadioButton.Group
-          onValueChange={(novoTipoImovel) => setTipoImovel(novoTipoImovel)}
-          value={tipoImovel}
-        >
-          <View style={styles.radioButtonContainer}>
-            <View style={styles.radioButton}>
-              <RadioButton
-                value="Apartamento"
-                color={theme.colors.primary}
-                uncheckedColor={theme.colors.primary}
-              />
-              <Text style={{ color: theme.colors.secondary }}>Apartamento</Text>
-            </View>
-            <View style={styles.radioButton}>
-              <RadioButton
-                value="Casa"
-                color={theme.colors.primary}
-                uncheckedColor={theme.colors.primary}
-              />
-              <Text style={{ color: theme.colors.secondary }}>Casa</Text>
-            </View>
-          </View>
-        </RadioButton.Group>
-
-        <TextInput
-          placeholder="Endereço do imóvel"
-          style={styles.textInput}
-          onChangeText={(text) => setEnderecoImovel(text)}
-        />
-        
-        <TextInput
-          placeholder="Valor (R$)"
-          style={styles.textInput}
-          value={valor ? moneyMask(valor) : ""}
-          onChangeText={(text) => setValor(text)}
+      <View
+        style={{
+          ...styles.container,
+          backgroundColor: theme.colors.background,
+        }}
+      >
+        <Image
+          source={require("../../../assets/logo-real-state.png")}
+          style={styles.logo}
+          resizeMode="contain"
         />
 
-        {tipoImovel === "Apartamento" && (
+        <View style={styles.containerForm}>
+          <Text style={{ ...styles.title, color: theme.colors.secondary }}>
+            CADASTRE AQUI O SEU IMÓVEL
+          </Text>
+
+          <Text variant="bodyLarge" style={{ color: theme.colors.secondary }}>
+            Contrato
+          </Text>
+          <RadioButton.Group
+            onValueChange={(novoTipoContrato) =>
+              setTipoContrato(novoTipoContrato)
+            }
+            value={tipoContrato}
+          >
+            <View style={styles.radioButtonContainer}>
+              <View style={styles.radioButton}>
+                <RadioButton
+                  value="Locação"
+                  color={theme.colors.primary}
+                  uncheckedColor={theme.colors.primary}
+                />
+                <Text style={{ color: theme.colors.secondary }}>Locação</Text>
+              </View>
+              <View style={styles.radioButton}>
+                <RadioButton
+                  value="Venda"
+                  color={theme.colors.primary}
+                  uncheckedColor={theme.colors.primary}
+                />
+                <Text style={{ color: theme.colors.secondary }}>Venda</Text>
+              </View>
+            </View>
+          </RadioButton.Group>
+
+          <Text variant="bodyLarge" style={{ color: theme.colors.secondary }}>
+            Tipo do imóvel
+          </Text>
+          <RadioButton.Group
+            onValueChange={(novoTipoImovel) => setTipoImovel(novoTipoImovel)}
+            value={tipoImovel}
+          >
+            <View style={styles.radioButtonContainer}>
+              <View style={styles.radioButton}>
+                <RadioButton
+                  value="Apartamento"
+                  color={theme.colors.primary}
+                  uncheckedColor={theme.colors.primary}
+                />
+                <Text style={{ color: theme.colors.secondary }}>
+                  Apartamento
+                </Text>
+              </View>
+              <View style={styles.radioButton}>
+                <RadioButton
+                  value="Casa"
+                  color={theme.colors.primary}
+                  uncheckedColor={theme.colors.primary}
+                />
+                <Text style={{ color: theme.colors.secondary }}>Casa</Text>
+              </View>
+            </View>
+          </RadioButton.Group>
+
           <TextInput
-            placeholder="Valor do condomínio (R$)"
-            value={valorCondominio ? moneyMask(valorCondominio) : ""}
+            placeholder="Endereço do imóvel"
             style={styles.textInput}
-            onChangeText={(text) => setValorCondominio(text)}
+            onChangeText={(text) => setEnderecoImovel(text)}
           />
-        )}
 
-        <TextInput
-          placeholder="Número de quartos"
-          style={styles.textInput}
-          onChangeText={(text) => setNumeroQuartos(text)}
-        />
-
-        <TextInput
-          placeholder="Número de banheiros"
-          style={styles.textInput}
-          onChangeText={(text) => setNumeroBanheiros(text)}
-        />
-
-        <TextInput
-          placeholder="Foto (URL)"
-          style={styles.textInput}
-          onChangeText={(text) => setFotoImovel(text)}
-        />
-
-        <View>
-          <Checkbox.Item
-            label="Está locado?"
-            status={statusLocacao ? "checked" : "unchecked"}
-            color={theme.colors.primary}
-            labelStyle={{ color: theme.colors.secondary }}
-            uncheckedColor={theme.colors.primary}
-            onPress={() => setStatusLocacao((checked) => !checked)}
+          <TextInput
+            placeholder="Valor (R$)"
+            keyboardType="numeric"
+            style={styles.textInput}
+            value={valor ? moneyMask(valor) : ""}
+            onChangeText={(text) => setValor(text)}
           />
+
+          {tipoImovel === "Apartamento" && (
+            <TextInput
+              placeholder="Valor do condomínio (R$)"
+              keyboardType="numeric"
+              value={valorCondominio ? moneyMask(valorCondominio) : ""}
+              style={styles.textInput}
+              onChangeText={(text) => setValorCondominio(text)}
+            />
+          )}
+
+          <TextInput
+            placeholder="Número de quartos"
+            keyboardType="numeric"
+            style={styles.textInput}
+            onChangeText={(text) => setNumeroQuartos(text)}
+          />
+
+          <TextInput
+            placeholder="Número de banheiros"
+            keyboardType="numeric"
+            style={styles.textInput}
+            onChangeText={(text) => setNumeroBanheiros(text)}
+          />
+
+          <TextInput
+            placeholder="Foto (URL)"
+            style={styles.textInput}
+            onChangeText={(text) => setFotoImovel(text)}
+          />
+
+          <View>
+            <Checkbox.Item
+              label="Está locado?"
+              status={statusLocacao ? "checked" : "unchecked"}
+              color={theme.colors.primary}
+              labelStyle={{ color: theme.colors.secondary }}
+              uncheckedColor={theme.colors.primary}
+              onPress={() => setStatusLocacao((checked) => !checked)}
+            />
+          </View>
+
+          <TouchableOpacity
+            style={styles.btnCadastro}
+            onPress={() => cadastro()}
+          >
+            <Text style={{ color: "white", textAlign: "center" }}>
+              CADASTRAR
+            </Text>
+          </TouchableOpacity>
         </View>
-
-        <TouchableOpacity style={styles.btnCadastro} onPress={() => cadastro()}>
-          <Text style={{ color: "white", textAlign: "center" }}>CADASTRAR</Text>
-        </TouchableOpacity>
       </View>
-    </View>
     </ScrollView>
   );
 }

@@ -1,22 +1,18 @@
 import React, { useState } from "react";
-import {
-  View,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
-} from "react-native";
+import { View, StyleSheet, TextInput, TouchableOpacity } from "react-native";
 import { RadioButton, Text, useTheme } from "react-native-paper";
 import { Checkbox } from "react-native-paper";
 import { useContext } from "react";
 import { ImoveisContext } from "../../context";
 import moneyMask from "../../masks/moneyMask";
+import { useEffect } from "react";
 
 export default function Edit({ route, navigation }) {
   const theme = useTheme();
 
-  const listaImoveis = useContext(ImoveisContext);
+  const { editarImovel, getImovel } = useContext(ImoveisContext);
 
-  const imovelSelecionado = listaImoveis.getImovel(route.params.idImovel);
+  const imovelSelecionado = getImovel(route.params.idImovel);
 
   const [tipoContrato, setTipoContrato] = useState(
     imovelSelecionado.tipoContrato
@@ -25,11 +21,9 @@ export default function Edit({ route, navigation }) {
   const [enderecoImovel, setEnderecoImovel] = useState(
     imovelSelecionado.enderecoImovel
   );
-  const [valor, setValor] = useState(
-    imovelSelecionado.valor.toFixed(2)
-  );
+  const [valor, setValor] = useState(imovelSelecionado.valor?.toFixed(2));
   const [valorCondominio, setValorCondominio] = useState(
-    imovelSelecionado.valorCondominio.toFixed(2)
+    imovelSelecionado.valorCondominio?.toFixed(2)
   );
   const [numeroQuartos, setNumeroQuartos] = useState(
     imovelSelecionado.numeroQuartos
@@ -41,6 +35,10 @@ export default function Edit({ route, navigation }) {
   const [statusLocacao, setStatusLocacao] = useState(
     imovelSelecionado.statusLocacao
   );
+
+  useEffect(() => {
+    getImovel(route.params.idImovel);
+  }, []);
 
   const salvar = () => {
     alert("Imóvel editado com sucesso!");
@@ -57,12 +55,10 @@ export default function Edit({ route, navigation }) {
       statusLocacao,
     };
 
-    listaImoveis.editarImovel(route.params.idImovel, {
+    editarImovel(route.params.idImovel, {
       ...novoImovel,
       valor: Number(
-        Number(
-          moneyMask(valor).replace(",", ".").replace("R$", "")
-        ).toFixed(2)
+        Number(moneyMask(valor).replace(",", ".").replace("R$", "")).toFixed(2)
       ),
       valorCondominio: Number(
         Number(
@@ -147,6 +143,7 @@ export default function Edit({ route, navigation }) {
 
         <TextInput
           placeholder="Valor do aluguel (R$)"
+          keyboardType="numeric"
           style={styles.textInput}
           onChangeText={(text) => setValor(text)}
           value={valor ? moneyMask(valor) : ""}
@@ -155,6 +152,7 @@ export default function Edit({ route, navigation }) {
         {tipoImovel === "Apartamento" && (
           <TextInput
             placeholder="Valor do condomínio (R$)"
+            keyboardType="numeric"
             style={styles.textInput}
             onChangeText={(text) => setValorCondominio(text)}
             value={valorCondominio ? moneyMask(valorCondominio) : ""}
@@ -163,6 +161,7 @@ export default function Edit({ route, navigation }) {
 
         <TextInput
           placeholder="Número de quartos"
+          keyboardType="numeric"
           style={styles.textInput}
           onChangeText={(text) => setNumeroQuartos(text)}
           defaultValue={numeroQuartos}
@@ -170,6 +169,7 @@ export default function Edit({ route, navigation }) {
 
         <TextInput
           placeholder="Número de banheiros"
+          keyboardType="numeric"
           style={styles.textInput}
           onChangeText={(text) => setNumeroBanheiros(text)}
           defaultValue={numeroBanheiros}
@@ -181,7 +181,7 @@ export default function Edit({ route, navigation }) {
           onChangeText={(text) => setFotoImovel(text)}
           defaultValue={fotoImovel}
         />
-        
+
         <View>
           <Checkbox.Item
             label="Está locado?"

@@ -1,8 +1,4 @@
 import * as SQLite from "expo-sqlite";
-// import {
-//   enablePromise,
-//   openDatabase,
-// } from "react-native-sqlite-storage";
 
 // Criação e conexão do banco de dados.
 function openDatabase() {

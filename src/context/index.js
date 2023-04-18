@@ -1,11 +1,6 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useState } from "react";
 import {
   db,
-  dbAddImovel,
-  dbEditarImovel,
-  dbExcluirImovel,
-  getImovelById,
-  getListaImoveis,
 } from "../database/db";
 
 export const ImoveisContext = createContext();

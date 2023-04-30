@@ -5,7 +5,6 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import { RadioButton, Text, useTheme } from "react-native-paper";
 import { useContext } from "react";
 import { ImoveisContext } from "../../context";
-import { getListaImoveis } from "../../database/db";
 
 export default function List({ navigation }) {
   const imoveisContext = useContext(ImoveisContext);

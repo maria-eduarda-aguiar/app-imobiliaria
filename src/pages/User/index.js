@@ -9,17 +9,20 @@ import {
 import { Text, useTheme } from "react-native-paper";
 import moneyMask from "../../masks/moneyMask";
 import { ScrollView } from "react-native-gesture-handler";
-import { PaperSelect } from "react-native-paper-select";
-import { ImoveisContext } from "../../context";
+import SelectDropdown from "react-native-select-dropdown";
+import Ionicons from "react-native-vector-icons/Ionicons";
+import { PessoasContext } from "../../context/PessoasProvider";
+import { ImoveisContext } from "../../context/ImoveisProvider";
 
 export default function User({ navigation }) {
   const theme = useTheme();
 
+  const pessoasContexto = useContext(PessoasContext);
   const listaImoveis = useContext(ImoveisContext);
 
   useEffect(() => {
-    listaImoveis.getLista()
-  }, [])
+    listaImoveis.getLista();
+  }, []);
 
   const [nomeLocatario, setNomeLocatario] = useState("");
   const [cpf, setCpf] = useState("");
@@ -28,11 +31,9 @@ export default function User({ navigation }) {
   const [diaVencimentoAluguel, setDiaVencimentoAluguel] = useState("");
   const [dataInicioContrato, setDataInicioContrato] = useState("");
   const [dataTerminoContrato, setDataTerminoContrato] = useState("");
-  const [imovelSelecionado, setImovelSelecionado] = useState("");
+  const [imovelVinculado, setImovelVinculado] = useState("");
 
-  console.log(listaImoveis)
-
-  const pessoa = () => {
+  const cadastrar = () => {
     alert("Pessoa cadastrada com sucesso!");
 
     const novaPessoa = {
@@ -43,22 +44,16 @@ export default function User({ navigation }) {
       diaVencimentoAluguel,
       dataInicioContrato,
       dataTerminoContrato,
-      imovelSelecionado,
+      imovelVinculado,
     };
 
-    // listaImoveis.addImovel({
-    //   ...novoImovel,
-    //   valor: Number(
-    //     Number(moneyMask(valor).replace(",", ".").replace("R$", "")).toFixed(2)
-    //   ),
-    //   valorCondominio: Number(
-    //     Number(
-    //       moneyMask(valorCondominio).replace("R$", "").replace(",", ".")
-    //     ).toFixed(2)
-    //   ),
-    // });
+    pessoasContexto.addPessoa({
+      ...novaPessoa,
+    });
 
-    navigation.navigate("User");
+    listaImoveis.getLista();
+
+    // navigation.navigate("User");
   };
 
   return (
@@ -129,19 +124,42 @@ export default function User({ navigation }) {
             onChangeText={(text) => setDataTerminoContrato(text)}
           />
 
-          {/* <PaperSelect
-            label="Selecione um imóvel"
-            value={imovelSelecionado}
-            onSelection={setImovelSelecionado}
-            arrayList={listaImoveis.localImoveis.map(imovel => ({_id: imovel.id, value: imovel.enderecoImovel}))}
-            selectedArrayList={[]}
-            errorText={""}
-            multiEnable={false}
-          /> */}
+          <SelectDropdown
+            data={listaImoveis.localImoveis.filter(
+              (imovel) =>
+                imovel.tipoContrato !== "Venda" &&
+                imovel.statusLocacao === "false"
+            )}
+            onSelect={(selectedItem, index) => {
+              setImovelVinculado(selectedItem.id);
+            }}
+            buttonTextAfterSelection={(selectedItem, index) => {
+              return selectedItem.enderecoImovel;
+            }}
+            rowTextForSelection={(item, index) => {
+              return item.enderecoImovel;
+            }}
+            renderDropdownIcon={(isOpened) => {
+              return (
+                <Ionicons
+                  name={isOpened ? "arrow-up" : "arrow-down"}
+                  color={"#000"}
+                  size={18}
+                />
+              );
+            }}
+            dropdownIconPosition="right"
+            defaultButtonText="Selecionar Imóvel"
+            buttonStyle={styles.dropdown1BtnStyle}
+            buttonTextStyle={styles.dropdown1BtnTxtStyle}
+            dropdownStyle={styles.dropdown1DropdownStyle}
+            rowStyle={styles.dropdown1RowStyle}
+            rowTextStyle={styles.dropdown1RowTxtStyle}
+          />
 
           <TouchableOpacity
             style={styles.btnCadastroPessoa}
-            onPress={() => pessoa()}
+            onPress={() => cadastrar()}
           >
             <Text style={{ color: "white", textAlign: "center" }}>
               CADASTRAR
@@ -215,4 +233,23 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     gap: 16,
   },
+  dropdown1BtnStyle: {
+    width: "100%",
+    // height: 50,
+    backgroundColor: "#FFF",
+    borderRadius: 30,
+    // borderWidth: 1,
+    // borderColor: "#444",
+    marginBottom: 8,
+  },
+  dropdown1BtnTxtStyle: { color: "#444", textAlign: "left", fontSize: 14 },
+  dropdown1DropdownStyle: { backgroundColor: "#EFEFEF" },
+  dropdown1RowStyle: {
+    backgroundColor: "#EFEFEF",
+    // borderBottomColor: "#C5C5C5",
+    borderBottomWidth: 0,
+    paddingTop: 4,
+    paddingBottom: 4,
+  },
+  dropdown1RowTxtStyle: { color: "#444", textAlign: "left", fontSize: 16 },
 });

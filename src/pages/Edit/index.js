@@ -3,7 +3,7 @@ import { View, StyleSheet, TextInput, TouchableOpacity } from "react-native";
 import { RadioButton, Text, useTheme } from "react-native-paper";
 import { Checkbox } from "react-native-paper";
 import { useContext } from "react";
-import { ImoveisContext } from "../../context";
+import { ImoveisContext } from "../../context/ImoveisProvider";
 import moneyMask from "../../masks/moneyMask";
 import { useEffect } from "react";
 

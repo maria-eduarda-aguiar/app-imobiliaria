@@ -9,7 +9,7 @@ import {
 import { RadioButton, Text, useTheme } from "react-native-paper";
 import { Checkbox } from "react-native-paper";
 import { useContext } from "react";
-import { ImoveisContext } from "../../context";
+import { ImoveisContext } from "../../context/ImoveisProvider";
 import moneyMask from "../../masks/moneyMask";
 import { ScrollView } from "react-native-gesture-handler";
 
@@ -26,7 +26,7 @@ export default function Register({ navigation }) {
   const [numeroQuartos, setNumeroQuartos] = useState("");
   const [numeroBanheiros, setNumeroBanheiros] = useState("");
   const [fotoImovel, setFotoImovel] = useState("");
-  const [statusLocacao, setStatusLocacao] = useState("");
+  const [statusLocacao, setStatusLocacao] = useState(false);
 
   const cadastro = () => {
     alert("Imóvel cadastrado com sucesso!");

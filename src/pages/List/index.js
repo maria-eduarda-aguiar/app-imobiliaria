@@ -4,12 +4,10 @@ import { View, Image, ScrollView } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { RadioButton, Text, useTheme } from "react-native-paper";
 import { useContext } from "react";
-import { ImoveisContext } from "../../context";
+import { ImoveisContext } from "../../context/ImoveisProvider";
 
 export default function List({ navigation }) {
   const imoveisContext = useContext(ImoveisContext);
-
-  console.log({ imoveisContext });
 
   const [filtroTipoContrato, setFiltroTipoContrato] = useState("Todos");
   const theme = useTheme();
@@ -114,20 +112,20 @@ export default function List({ navigation }) {
                 <View style={styles.infoContainer}>
                   <Text style={styles.label}>Valor do aluguel</Text>
                   <Text>
-                    {imovel.valor.toLocaleString("pt-BR", {
+                    {imovel.valor?.toLocaleString("pt-BR", {
                       style: "currency",
                       currency: "BRL",
-                    })}
+                    }) ?? "0"}
                   </Text>
                 </View>
 
                 <View style={styles.infoContainer}>
                   <Text style={styles.label}>Valor do condomínio</Text>
                   <Text>
-                    {imovel.valorCondominio.toLocaleString("pt-BR", {
+                    {imovel.valorCondominio?.toLocaleString("pt-BR", {
                       style: "currency",
                       currency: "BRL",
-                    })}
+                    }) ?? "0"}
                   </Text>
                 </View>
 
@@ -143,12 +141,18 @@ export default function List({ navigation }) {
 
                 <View style={styles.infoContainer}>
                   <Text style={styles.label}>Locado</Text>
-                  {imovel.statusLocacao ? (
+                  {imovel.statusLocacao === "true" ? (
                     <Ionicons name="checkmark" size={20} color="green" />
                   ) : (
                     <Ionicons name="close" size={20} color="red" />
                   )}
                 </View>
+                {imovel.nomeLocatario && (
+                  <View style={styles.infoContainer}>
+                    <Text style={styles.label}>Nome Locatário</Text>
+                    <Text>{imovel.nomeLocatario}</Text>
+                  </View>
+                )}
 
                 <View style={styles.infoContainer}>
                   <Text style={styles.label}>Imagem</Text>

@@ -1,7 +1,5 @@
 import { createContext, useState } from "react";
-import {
-  db,
-} from "../database/db";
+import { db } from "../database/db";
 
 export const ImoveisContext = createContext();
 
@@ -35,7 +33,7 @@ export default function ImoveisProvedor({ children }) {
           imovel.numeroQuartos,
           imovel.numeroBanheiros,
           imovel.fotoImovel,
-          imovel.statusLocacao,
+          imovel.statusLocacao ?? false,
         ],
         () => {
           getLista();

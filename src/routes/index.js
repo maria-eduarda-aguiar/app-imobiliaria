@@ -7,6 +7,8 @@ import User from "../pages/User";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { createStackNavigator } from "@react-navigation/stack";
 import Edit from "../pages/Edit";
+import Login from "../pages/Login";
+import NewAccount from "../pages/NewAccount";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -15,11 +17,22 @@ export default function Routes() {
   return (
     <Tab.Navigator>
       <Tab.Screen
+        name="Login"
+        component={OutNavigationAccount}
+        options={{
+          headerShown: false,
+          tabBarLabel: "Login",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="key" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tab.Screen
         name="Cadastro"
         component={Register}
         options={{
           headerShown: false,
-          tabBarLabel: "Cadastro",
+          tabBarLabel: "Cadastro Imóvel",
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="home" color={color} size={size} />
           ),
@@ -30,7 +43,7 @@ export default function Routes() {
         component={OutNavigation}
         options={{
           headerShown: false,
-          tabBarLabel: "Imóveis",
+          tabBarLabel: "Lista Imóveis",
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="list-outline" color={color} size={size} />
           ),
@@ -41,9 +54,9 @@ export default function Routes() {
         component={User}
         options={{
           headerShown: false,
-          tabBarLabel: "Pessoa",
+          tabBarLabel: "Locatário",
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="person-outline" color={color} size={size} />
+            <Ionicons name="person-add" color={color} size={size} />
           ),
         }}
       />
@@ -60,6 +73,19 @@ function OutNavigation() {
         options={{ headerShown: false }}
       />
       <Stack.Screen name="Edição" component={Edit} />
+    </Stack.Navigator>
+  );
+}
+
+function OutNavigationAccount() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Login"
+        component={Login}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen name="Nova Conta" component={NewAccount} />
     </Stack.Navigator>
   );
 }

@@ -15,6 +15,7 @@ import { PessoasContext } from "../../context/PessoasProvider";
 import { ImoveisContext } from "../../context/ImoveisProvider";
 
 export default function User({ navigation }) {
+  
   const theme = useTheme();
 
   const pessoasContexto = useContext(PessoasContext);
@@ -53,7 +54,6 @@ export default function User({ navigation }) {
 
     listaImoveis.getLista();
 
-    // navigation.navigate("User");
   };
 
   return (
@@ -175,21 +175,21 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    padding: 16,
+    padding: 16
   },
 
   scrollView: {
-    backgroundColor: "#1b1b1b",
+    backgroundColor: "#1b1b1b"
   },
 
   logo: {
     width: "100%",
-    height: 100,
+    height: 100
   },
 
   containerForm: {
     flex: 1,
-    gap: 8,
+    gap: 8
   },
 
   title: {
@@ -197,7 +197,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginTop: 28,
     marginBottom: 12,
-    textAlign: "center",
+    textAlign: "center"
   },
 
   textInput: {
@@ -206,7 +206,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 20,
     paddingLeft: 10,
-    marginBottom: 10,
+    marginBottom: 10
   },
 
   btnCadastroPessoa: {
@@ -214,42 +214,37 @@ const styles = StyleSheet.create({
     height: 40,
     backgroundColor: "#066799",
     borderRadius: 20,
-    justifyContent: "center",
+    justifyContent: "center"
   },
 
-  btnListagem: {
-    width: "100%",
-    height: 40,
-    borderRadius: 20,
-    justifyContent: "center",
-  },
-
-  radioButton: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-
-  radioButtonContainer: {
-    flexDirection: "row",
-    gap: 16,
-  },
   dropdown1BtnStyle: {
     width: "100%",
-    // height: 50,
     backgroundColor: "#FFF",
     borderRadius: 30,
-    // borderWidth: 1,
-    // borderColor: "#444",
-    marginBottom: 8,
+    marginBottom: 8
   },
-  dropdown1BtnTxtStyle: { color: "#444", textAlign: "left", fontSize: 14 },
-  dropdown1DropdownStyle: { backgroundColor: "#EFEFEF" },
+
+  dropdown1BtnTxtStyle: { 
+    color: "#444", 
+    textAlign: "left", 
+    fontSize: 14
+  },
+
+  dropdown1DropdownStyle: { 
+    backgroundColor: "#EFEFEF"
+  },
+
   dropdown1RowStyle: {
     backgroundColor: "#EFEFEF",
-    // borderBottomColor: "#C5C5C5",
     borderBottomWidth: 0,
     paddingTop: 4,
-    paddingBottom: 4,
+    paddingBottom: 4
   },
-  dropdown1RowTxtStyle: { color: "#444", textAlign: "left", fontSize: 16 },
+
+  dropdown1RowTxtStyle: { 
+    color: "#444", 
+    textAlign: "left", 
+    fontSize: 16 
+  },
+
 });

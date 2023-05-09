@@ -14,7 +14,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import { PessoasContext } from "../../context/PessoasProvider";
 import { ImoveisContext } from "../../context/ImoveisProvider";
 
-export default function User({ navigation }) {
+export default function Pessoa({ navigation }) {
   
   const theme = useTheme();
 

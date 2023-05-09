@@ -15,15 +15,15 @@ export default function NewAccount({ route, navigation }) {
   const [nomeUsuario, setNomeUsuario] = useState("");
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
-
-  const criarConta = () => {
-    alert("Conta criada com sucesso!");
-
+  
+  async function criarConta () {
     const novaConta = {
       nomeUsuario,
       email,
       senha,
     };
+    const token = await salvarUsuario(usuario);
+    console.log(token);
   };
 
   return (
@@ -132,5 +132,5 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     justifyContent: "center",
   },
-  
+
 });

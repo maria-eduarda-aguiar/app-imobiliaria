@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import "react-native-gesture-handler";
 import Register from "../pages/Register";
 import List from "../pages/List";
-import User from "../pages/User";
+import Pessoa from "../pages/People";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { createStackNavigator } from "@react-navigation/stack";
 import Edit from "../pages/Edit";
@@ -50,8 +50,8 @@ export default function Routes() {
         }}
       />
       <Tab.Screen
-        name="User"
-        component={User}
+        name="Pessoa"
+        component={Pessoa}
         options={{
           headerShown: false,
           tabBarLabel: "Locatário",

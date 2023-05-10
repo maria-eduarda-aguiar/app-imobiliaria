@@ -9,18 +9,18 @@ export default function ImoveisProvedor({ children }) {
   // Adiciona o imóvel no banco de dados.
   const addImovel = (imovel) => {
     const query = `
-    INSERT INTO imoveis(
-      tipoContrato,
-      tipoImovel,
-      enderecoImovel,
-      valor,
-      valorCondominio,
-      numeroQuartos,
-      numeroBanheiros,
-      fotoImovel,
-      statusLocacao)
-    VALUES (?,?,?,?,?,?,?,?,?)
-`;
+      INSERT INTO imoveis(
+        tipoContrato,
+        tipoImovel,
+        enderecoImovel,
+        valor,
+        valorCondominio,
+        numeroQuartos,
+        numeroBanheiros,
+        fotoImovel,
+        statusLocacao)
+      VALUES (?,?,?,?,?,?,?,?,?)
+    `
     db.transaction((tx) => {
       tx.executeSql(
         query,
@@ -44,8 +44,8 @@ export default function ImoveisProvedor({ children }) {
 
   const removerImovel = (idImovel) => {
     const query = `
-    DELETE FROM imoveis WHERE id = ?
-`;
+      DELETE FROM imoveis WHERE id = ?
+    `
 
     db.transaction((tx) => {
       tx.executeSql(query, [idImovel], () => getLista());
@@ -54,19 +54,19 @@ export default function ImoveisProvedor({ children }) {
 
   const editarImovel = (idImovel, dadosImovel) => {
     const query = `
-    UPDATE imoveis
-    SET
-      tipoContrato = "${dadosImovel.tipoContrato}",
-      tipoImovel = "${dadosImovel.tipoImovel}",
-      enderecoImovel = "${dadosImovel.enderecoImovel}",
-      valor = ${dadosImovel.valor},
-      valorCondominio = ${dadosImovel.valorCondominio},
-      numeroQuartos = ${dadosImovel.numeroQuartos},
-      numeroBanheiros = ${dadosImovel.numeroBanheiros},
-      fotoImovel = "${dadosImovel.fotoImovel}",
-      statusLocacao = ${dadosImovel.statusLocacao}
-      WHERE id = ${idImovel};
-`;
+      UPDATE imoveis
+        SET
+          tipoContrato = "${dadosImovel.tipoContrato}",
+          tipoImovel = "${dadosImovel.tipoImovel}",
+          enderecoImovel = "${dadosImovel.enderecoImovel}",
+          valor = ${dadosImovel.valor},
+          valorCondominio = ${dadosImovel.valorCondominio},
+          numeroQuartos = ${dadosImovel.numeroQuartos},
+          numeroBanheiros = ${dadosImovel.numeroBanheiros},
+          fotoImovel = "${dadosImovel.fotoImovel}",
+          statusLocacao = ${dadosImovel.statusLocacao}
+          WHERE id = ${idImovel};
+      `
     db.transaction((tx) => {
       tx.executeSql(query, [], () => getLista());
     });
@@ -79,7 +79,7 @@ export default function ImoveisProvedor({ children }) {
   const getLista = (tipoContrato) => {
     const query = `SELECT * FROM imoveis ${
       tipoContrato ? `WHERE tipoContrato = '${tipoContrato}'` : ""
-    } `;
+    } `
 
     db.transaction((tx) => {
       tx.executeSql(

@@ -21,6 +21,8 @@ export default function Routes() {
         component={OutNavigationAccount}
         options={{
           headerShown: false,
+          tabBarActiveTintColor: "#baa360",
+          //tabBarInactiveTintColor: "#000",
           tabBarLabel: "Login",
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="key" color={color} size={size} />
@@ -32,18 +34,22 @@ export default function Routes() {
         component={Register}
         options={{
           headerShown: false,
-          tabBarLabel: "Cadastro Imóvel",
+          tabBarActiveTintColor: "#baa360",
+          //tabBarInactiveTintColor: "#000",
+          tabBarLabel: "Imóvel",
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="home" color={color} size={size} />
           ),
         }}
       />
       <Tab.Screen
-        name="List"
+        name="Lista"
         component={OutNavigation}
         options={{
           headerShown: false,
-          tabBarLabel: "Lista Imóveis",
+          tabBarActiveTintColor: "#baa360",
+          //tabBarInactiveTintColor: "#000",
+          tabBarLabel: "Lista",
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="list-outline" color={color} size={size} />
           ),
@@ -54,7 +60,9 @@ export default function Routes() {
         component={Pessoa}
         options={{
           headerShown: false,
-          tabBarLabel: "Locatário",
+          tabBarActiveTintColor: "#baa360",
+          //tabBarInactiveTintColor: "#000",
+          tabBarLabel: "Pessoa",
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="person-add" color={color} size={size} />
           ),

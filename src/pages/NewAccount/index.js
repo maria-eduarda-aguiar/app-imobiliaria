@@ -35,14 +35,14 @@ export default function NewAccount({ route, navigation }) {
         }}
       >
         <Image
-          source={require("../../../assets/logo-real-state.png")}
+          source={require("../../../assets/real-state-logo.png")}
           style={styles.logo}
           resizeMode="contain"
         />
 
         <View style={styles.containerForm}>
           <Text style={{ ...styles.title, color: theme.colors.secondary }}>
-            CRIE SUA CONTA AQUI
+            Realizei aqui o seu cadastro
           </Text>
 
           <TextInput
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginTop: 28,
     marginBottom: 12,
-    textAlign: "center",
+    textAlign: "justify",
   },
 
   text: {
@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
   btnCriarConta: {
     width: "100%",
     height: 40,
-    backgroundColor: "#066799",
+    backgroundColor: "#baa360",
     borderRadius: 20,
     justifyContent: "center",
   },

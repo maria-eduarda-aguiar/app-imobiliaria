@@ -74,10 +74,6 @@ export default function Edit({ route, navigation }) {
       style={{ ...styles.container, backgroundColor: theme.colors.background }}
     >
       <View style={styles.containerForm}>
-        <Text style={{ ...styles.title, color: theme.colors.secondary }}>
-          EDITE OS DADOS DO IMÓVEL
-        </Text>
-
         <Text variant="bodyLarge" style={{ color: theme.colors.secondary }}>
           Contrato
         </Text>
@@ -238,7 +234,7 @@ const styles = StyleSheet.create({
   btnCadastro: {
     width: "100%",
     height: 40,
-    backgroundColor: "#066799",
+    backgroundColor: "#baa360",
     borderRadius: 20,
     justifyContent: "center",
   },

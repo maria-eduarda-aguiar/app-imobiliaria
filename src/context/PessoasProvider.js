@@ -9,7 +9,7 @@ export default function PessoasProvedor({ children }) {
   // Adiciona a pessoa no banco de dados.
   const addPessoa = (pessoa) => {
     const query = `
-    INSERT INTO pessoas(
+      INSERT INTO pessoas(
         nomeLocatario,
         cpf,
         dataNascimento,
@@ -18,8 +18,8 @@ export default function PessoasProvedor({ children }) {
         dataInicioContrato,
         dataTerminoContrato,
         imovelVinculado)
-    VALUES (?,?,?,?,?,?,?,?)
-`;
+      VALUES (?,?,?,?,?,?,?,?)
+    `
     db.transaction((tx) => {
       tx.executeSql(
         query,
@@ -53,7 +53,7 @@ export default function PessoasProvedor({ children }) {
   };
 
   const getListaPessoas = () => {
-    const query = `SELECT * FROM pessoas`;
+    const query = `SELECT * FROM pessoas`
 
     db.transaction((tx) => {
       tx.executeSql(

@@ -33,14 +33,14 @@ export default function Login({ navigation }) {
         }}
       >
         <Image
-          source={require("../../../assets/logo-real-state.png")}
+          source={require("../../../assets/real-state-logo.png")}
           style={styles.logo}
           resizeMode="contain"
         />
 
         <View style={styles.containerForm}>
           <Text style={{ ...styles.title, color: theme.colors.secondary }}>
-            REALIZE O SEU LOGIN
+            Já possui cadastro? Faça o seu login
           </Text>
 
           <TextInput
@@ -61,7 +61,7 @@ export default function Login({ navigation }) {
           </TouchableOpacity>
 
           <Text style={{ ...styles.text, color: theme.colors.secondary }}>
-            Ainda não possui conta?
+            Ainda não possui cadastro?
           </Text>
 
           <TouchableOpacity
@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
   btnLogin: {
     width: "100%",
     height: 40,
-    backgroundColor: "#066799",
+    backgroundColor: "#baa360",
     borderRadius: 20,
     justifyContent: "center",
   },
@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
   btnCriarConta: {
     width: "100%",
     height: 40,
-    backgroundColor: "#066799",
+    backgroundColor: "#baa360",
     borderRadius: 20,
     justifyContent: "center",
   },

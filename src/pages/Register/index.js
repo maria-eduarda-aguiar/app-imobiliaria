@@ -67,14 +67,14 @@ export default function Register({ navigation }) {
         }}
       >
         <Image
-          source={require("../../../assets/logo-real-state.png")}
+          source={require("../../../assets/real-state-logo.png")}
           style={styles.logo}
           resizeMode="contain"
         />
 
         <View style={styles.containerForm}>
           <Text style={{ ...styles.title, color: theme.colors.secondary }}>
-            CADASTRE AQUI O SEU IMÓVEL
+            Possui imóveis? Cadastre aqui
           </Text>
 
           <Text variant="bodyLarge" style={{ color: theme.colors.secondary }}>
@@ -230,7 +230,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginTop: 28,
     marginBottom: 12,
-    textAlign: "center",
+    textAlign: "justify",
   },
 
   textInput: {
@@ -245,7 +245,7 @@ const styles = StyleSheet.create({
   btnCadastro: {
     width: "100%",
     height: 40,
-    backgroundColor: "#066799",
+    backgroundColor: "#baa360",
     borderRadius: 20,
     justifyContent: "center",
   },

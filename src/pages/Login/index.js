@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   View,
   Image,
@@ -6,8 +6,9 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
-import { Text, useTheme } from "react-native-paper";
+import { ProgressBar, Text, useTheme } from "react-native-paper";
 import { ScrollView } from "react-native-gesture-handler";
+import { LoginContext } from "../../context/LoginProvider";
 
 export default function Login({ navigation }) {
   const theme = useTheme();
@@ -15,13 +16,16 @@ export default function Login({ navigation }) {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
 
+  const { addLogin, loading } = useContext(LoginContext);
+
   async function logar() {
-    const login = {
-      email,
-      senha,
-    };
-    const token = await efetuarLogin(login);
-    console.log(token);
+    // const login = {
+    //   email,
+    //   senha,
+    // };
+    // const token = await addLogin(login);
+    // console.log(token);
+    navigation.navigate("AuthNavigation");
   }
 
   return (
@@ -56,9 +60,18 @@ export default function Login({ navigation }) {
             onChangeText={(text) => setSenha(text)}
           />
 
-          <TouchableOpacity style={styles.btnLogin} onPress={() => logar()}>
-            <Text style={{ color: "white", textAlign: "center" }}>LOGIN</Text>
-          </TouchableOpacity>
+          {loading ? (
+            <View>
+              <Text style={{ color: "#fff", textAlign: "center" }}>
+                Entrando...
+              </Text>
+              <ProgressBar style={{ width: "100%" }} indeterminate />
+            </View>
+          ) : (
+            <TouchableOpacity style={styles.btnLogin} onPress={() => logar()}>
+              <Text style={{ color: "white", textAlign: "center" }}>LOGIN</Text>
+            </TouchableOpacity>
+          )}
 
           <Text style={{ ...styles.text, color: theme.colors.secondary }}>
             Ainda não possui cadastro?

@@ -1,7 +1,7 @@
 export async function salvarUsuario(usuario) {
     try {
         const response = await fetch(
-            'http://ec2-3-87-247-74.compute-1.amazonaws.com/usuarios/', {
+            'http://ec2-54-166-238-5.compute-1.amazonaws.com/usuarios/', {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',
@@ -12,6 +12,7 @@ export async function salvarUsuario(usuario) {
         })
         console.log('Sucesso')
         console.log(response)
+        return await response.json()
     } catch (error) {
         console.log('Houve um erro')
         console.log(error)

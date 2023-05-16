@@ -1,7 +1,7 @@
 export async function efetuarLogin(login) {
     try {
         const token = await fetch(
-            'http://ec2-3-87-247-74.compute-1.amazonaws.com/authenticate/token', {
+            'http://ec2-54-166-238-5.compute-1.amazonaws.com/authenticate/token', {
                 method: 'POST',
                 headers: {
                     'Content-type': 'application/json',

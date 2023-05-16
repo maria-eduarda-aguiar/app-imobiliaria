@@ -19,13 +19,13 @@ export default function Login({ navigation }) {
   const { addLogin, loading } = useContext(LoginContext);
 
   async function logar() {
-    // const login = {
-    //   email,
-    //   senha,
-    // };
-    // const token = await addLogin(login);
-    // console.log(token);
-    navigation.navigate("AuthNavigation");
+    const login = {
+      email,
+      senha,
+    };
+    const token = await addLogin(login);
+    console.log(token);
+    //navigation.navigate("Listagem");
   }
 
   return (

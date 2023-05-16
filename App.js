@@ -9,6 +9,7 @@ import ImoveisProvedor from "./src/context/ImoveisProvider";
 import { createTablesImoveis, createTablesPessoas } from "./src/database/db";
 import PessoasProvedor from "./src/context/PessoasProvider";
 import LoginProvedor from "./src/context/LoginProvider";
+import UserProvedor from "./src/context/UserProvider";
 
 export default function App() {
   async function init() {
@@ -24,13 +25,14 @@ export default function App() {
     <PaperProvider theme={theme}>
       <NavigationContainer>
         <LoginProvedor>
-          <PessoasProvedor>
-            <ImoveisProvedor>
-              <StatusBar backgroundColor="#545454" barStyle="light-content" />
-
-              <Routes />
-            </ImoveisProvedor>
-          </PessoasProvedor>
+          <UserProvedor>
+            <PessoasProvedor>
+              <ImoveisProvedor>
+                <StatusBar backgroundColor="#545454" barStyle="light-content" />
+                <Routes />
+              </ImoveisProvedor>
+            </PessoasProvedor>
+          </UserProvedor>
         </LoginProvedor>
       </NavigationContainer>
     </PaperProvider>

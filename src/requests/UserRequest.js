@@ -8,6 +8,7 @@ export async function salvarUsuario(usuario) {
                 'apikey': '08372311f6a85eefb262763d6a5166dc6cb50e86'
             },
             body: JSON.stringify(usuario)
+            
         })
         console.log('Sucesso')
         console.log(response)

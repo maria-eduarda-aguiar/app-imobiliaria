@@ -6,25 +6,29 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
-import { Text, useTheme } from "react-native-paper";
+import { ProgressBar, Text, useTheme } from "react-native-paper";
 import { ScrollView } from "react-native-gesture-handler";
+import { UserContext } from "../../context/UserProvider";
+import { useContext } from "react";
 
-export default function NewAccount({ route, navigation }) {
+export default function NewAccount({ navigation }) {
   const theme = useTheme();
 
-  const [nomeUsuario, setNomeUsuario] = useState("");
+  const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
-  
-  async function criarConta () {
+
+  const { addUser, loading } = useContext(UserContext);
+
+  async function criarConta() {
     const novaConta = {
-      nomeUsuario,
+      nome,
       email,
       senha,
     };
-    const token = await salvarUsuario(usuario);
-    console.log(token);
-  };
+    await addUser(novaConta);
+    navigation.navigate("Login");
+  }
 
   return (
     <ScrollView style={styles.scrollView}>
@@ -48,7 +52,7 @@ export default function NewAccount({ route, navigation }) {
           <TextInput
             placeholder="Nome"
             style={styles.textInput}
-            onChangeText={(text) => setNomeUsuario(text)}
+            onChangeText={(text) => setNome(text)}
           />
 
           <TextInput
@@ -64,15 +68,23 @@ export default function NewAccount({ route, navigation }) {
             onChangeText={(text) => setSenha(text)}
           />
 
-          <TouchableOpacity
-            style={styles.btnCriarConta}
-            onPress={() => criarConta()}
-          >
-            <Text style={{ color: "white", textAlign: "center" }}>
-              CRIAR CONTA
-            </Text>
-          </TouchableOpacity>
-
+          {loading ? (
+            <View>
+              <Text style={{ color: "#fff", textAlign: "center" }}>
+                Criando usuário...
+              </Text>
+              <ProgressBar style={{ width: "100%" }} indeterminate />
+            </View>
+          ) : (
+            <TouchableOpacity
+              style={styles.btnCriarConta}
+              onPress={() => criarConta()}
+            >
+              <Text style={{ color: "white", textAlign: "center" }}>
+                CRIAR CONTA
+              </Text>
+            </TouchableOpacity>
+          )}
         </View>
       </View>
     </ScrollView>
@@ -132,5 +144,4 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     justifyContent: "center",
   },
-
 });

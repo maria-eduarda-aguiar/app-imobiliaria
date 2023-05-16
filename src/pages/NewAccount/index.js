@@ -46,7 +46,7 @@ export default function NewAccount({ navigation }) {
 
         <View style={styles.containerForm}>
           <Text style={{ ...styles.title, color: theme.colors.secondary }}>
-            Realizei aqui o seu cadastro
+            Realize aqui o seu cadastro
           </Text>
 
           <TextInput

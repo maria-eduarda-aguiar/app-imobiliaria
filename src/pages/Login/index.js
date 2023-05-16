@@ -25,7 +25,6 @@ export default function Login({ navigation }) {
     };
     const token = await addLogin(login);
     console.log(token);
-    navigation.navigate("Listagem");
   }
 
   return (

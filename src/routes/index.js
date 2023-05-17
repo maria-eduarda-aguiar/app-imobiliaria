@@ -10,10 +10,18 @@ import Edit from "../pages/Edit";
 import Login from "../pages/Login";
 import NewAccount from "../pages/NewAccount";
 import NotFound from "../pages/NotFound";
+import BottomTabNavigator from "./BottomTabNavigator";
+import { LoginContext } from "../context/LoginProvider";
 
 const Stack = createStackNavigator();
 
-export default function BottomTabNavigator() {
+export default function StackNavigator() {
+  const { login } = React.useContext(LoginContext);
+  console.log({ login });
+
+  if (login) {
+    return <BottomTabNavigator />;
+  }
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -31,11 +39,6 @@ export default function BottomTabNavigator() {
       <Stack.Screen
         name="NotFound"
         component={NotFound}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="AuthNavigation"
-        component={BottomTabNavigator}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

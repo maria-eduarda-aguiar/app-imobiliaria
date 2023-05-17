@@ -1,5 +1,6 @@
 import { createContext, useState } from "react";
 import { efetuarLogin } from "../requests/LoginRequest";
+import { salvarUsuario } from "../requests/UserRequest";
 
 export const LoginContext = createContext();
 
@@ -16,11 +17,16 @@ export default function LoginProvedor({ children }) {
     setLoading(false);
   };
 
+  const criarConta = async (dados) => {
+    await salvarUsuario(dados)
+  }
+
   return (
     <LoginContext.Provider
       value={{
         loading,
         login,
+        criarConta,
         addLogin,
       }}
     >

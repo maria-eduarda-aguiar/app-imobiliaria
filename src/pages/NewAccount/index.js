@@ -8,23 +8,28 @@ import {
 } from "react-native";
 import { Text, useTheme } from "react-native-paper";
 import { ScrollView } from "react-native-gesture-handler";
+import { useContext } from "react";
+import { LoginContext } from "../../context/LoginProvider";
 
 export default function NewAccount({ route, navigation }) {
   const theme = useTheme();
 
+  const { criarConta } = useContext(LoginContext);
+
   const [nomeUsuario, setNomeUsuario] = useState("");
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
-  
-  async function criarConta () {
+
+  async function novoUsuario() {
     const novaConta = {
       nomeUsuario,
       email,
       senha,
     };
-    const token = await salvarUsuario(usuario);
+    const token = await criarConta(novaConta);
     console.log(token);
-  };
+    navigation.navigate("Login");
+  }
 
   return (
     <ScrollView style={styles.scrollView}>
@@ -66,13 +71,12 @@ export default function NewAccount({ route, navigation }) {
 
           <TouchableOpacity
             style={styles.btnCriarConta}
-            onPress={() => criarConta()}
+            onPress={() => novoUsuario()}
           >
             <Text style={{ color: "white", textAlign: "center" }}>
               CRIAR CONTA
             </Text>
           </TouchableOpacity>
-
         </View>
       </View>
     </ScrollView>
@@ -132,5 +136,4 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     justifyContent: "center",
   },
-
 });

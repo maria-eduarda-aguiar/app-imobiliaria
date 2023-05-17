@@ -13,7 +13,6 @@ import { LoginContext } from "../context/LoginProvider";
 import NotFound from "../pages/NotFound";
 
 const Tab = createBottomTabNavigator();
-const Stack = createStackNavigator();
 
 export default function BottomTabNavigator() {
   const { login } = React.useContext(LoginContext);
@@ -23,6 +22,19 @@ export default function BottomTabNavigator() {
   }
   return (
     <Tab.Navigator>
+      <Tab.Screen
+        name="Lista"
+        component={List}
+        options={{
+          headerShown: false,
+          tabBarActiveTintColor: "#baa360",
+          //tabBarInactiveTintColor: "#000",
+          tabBarLabel: "Lista",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="list-outline" color={color} size={size} />
+          ),
+        }}
+      />
       <Tab.Screen
         name="Cadastro"
         component={Register}
@@ -38,19 +50,7 @@ export default function BottomTabNavigator() {
           ),
         }}
       />
-      <Tab.Screen
-        name="Lista"
-        component={List}
-        options={{
-          headerShown: false,
-          tabBarActiveTintColor: "#baa360",
-          //tabBarInactiveTintColor: "#000",
-          tabBarLabel: "Lista",
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="list-outline" color={color} size={size} />
-          ),
-        }}
-      />
+
       <Tab.Screen
         name="Pessoa"
         component={Pessoa}

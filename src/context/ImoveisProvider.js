@@ -7,7 +7,9 @@ export default function ImoveisProvedor({ children }) {
   const [localImoveis, setLocalImoveis] = useState([]);
 
   // Adiciona o imóvel no banco de dados.
-  const addImovel = (imovel) => {
+  const addImovel = async (imovel) => {
+
+
     const query = `
       INSERT INTO imoveis(
         tipoContrato,
@@ -15,7 +17,7 @@ export default function ImoveisProvedor({ children }) {
         enderecoImovel,
         valor,
         valorCondominio,
-        numeroQuartos,
+        numeroQuartos,D
         numeroBanheiros,
         fotoImovel,
         statusLocacao)

@@ -5,10 +5,6 @@ import Register from "../pages/Register";
 import List from "../pages/List";
 import Pessoa from "../pages/People";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import { createStackNavigator } from "@react-navigation/stack";
-import Edit from "../pages/Edit";
-import Login from "../pages/Login";
-import NewAccount from "../pages/NewAccount";
 import { LoginContext } from "../context/LoginProvider";
 import NotFound from "../pages/NotFound";
 
@@ -42,7 +38,6 @@ export default function BottomTabNavigator() {
           headerShown: false,
           tabBarActiveTintColor: "#baa360",
           tabBarShowLabel: false,
-
           //tabBarInactiveTintColor: "#000",
           tabBarLabel: "Imóvel",
           tabBarIcon: ({ color, size }) => (
@@ -57,7 +52,6 @@ export default function BottomTabNavigator() {
         options={{
           headerShown: false,
           tabBarShowLabel: false,
-
           tabBarActiveTintColor: "#baa360",
           //tabBarInactiveTintColor: "#000",
           tabBarLabel: "Pessoa",

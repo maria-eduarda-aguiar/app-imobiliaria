@@ -1,26 +1,22 @@
 import * as React from "react";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import "react-native-gesture-handler";
-import Register from "../pages/Register";
 import List from "../pages/List";
-import Pessoa from "../pages/People";
-import Ionicons from "react-native-vector-icons/Ionicons";
 import { createStackNavigator } from "@react-navigation/stack";
 import Edit from "../pages/Edit";
 import Login from "../pages/Login";
 import NewAccount from "../pages/NewAccount";
 import NotFound from "../pages/NotFound";
-import BottomTabNavigator from "./BottomTabNavigator";
 import { LoginContext } from "../context/LoginProvider";
+import BottomTabNavigator from "./BottomTabNavigator";
 
 const Stack = createStackNavigator();
 
-export default function StackNavigator() {
+export default function StackNavigator(){
   const { login } = React.useContext(LoginContext);
   console.log({ login });
 
   if (login) {
-    return <BottomTabNavigator />;
+    return <BottomTabNavigator />
   }
   return (
     <Stack.Navigator>
@@ -41,6 +37,6 @@ export default function StackNavigator() {
         component={NotFound}
         options={{ headerShown: false }}
       />
-    </Stack.Navigator>
+      </Stack.Navigator>
   );
 }

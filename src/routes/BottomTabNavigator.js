@@ -19,7 +19,7 @@ export default function BottomTabNavigator() {
   return (
     <Tab.Navigator>
       <Tab.Screen
-        name="Lista"
+        name="List"
         component={List}
         options={{
           headerShown: false,
